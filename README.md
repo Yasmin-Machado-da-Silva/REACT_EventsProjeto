@@ -23,7 +23,6 @@
 # ✅ **Funcionalidades Concluídas**
 
 - Organização inicial do projeto  
-- Estrutura de rotas com `react-router-dom`  
 - Páginas criadas separadamente com base nas rotas  
 
 ---
