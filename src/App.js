@@ -1,11 +1,12 @@
 import './App.css';
-import Login from './pages/login/Login';
+// import Login from './pages/login/Login';
+import Header from './components/header/Header';
 
 function App() {
   return (
 
-  <Login/>
-);
+  <Header/>
+)
 }
 
 export default App;

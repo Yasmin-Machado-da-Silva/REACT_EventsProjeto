@@ -79,3 +79,10 @@
         display: none;
     }
 }
+
+.senhaEsquecida_Link {
+    display: flex;
+    justify-content: space-around;
+    text-decoration: none;
+    color: #777;
+}

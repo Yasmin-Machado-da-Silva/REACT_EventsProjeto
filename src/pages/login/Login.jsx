@@ -2,7 +2,7 @@
 import Logo from "../../assets/img/logoEvents.svg"
 import Botao from "../../components/botao/Botao";
 import "./Login.css"
-// import { Link } from "react-router-dom"
+// import {Link} from "react-router-dom";
 
 const Login = () => {
   return (
@@ -15,20 +15,22 @@ const Login = () => {
           <div className="campos_login">
             <div className="campo_input">
               {/* <label htmlFor="email">Email: </label> */}
-              <input type="email" name="email" placeholder="Username"></input>
+              <input type="email" name="email" placeholder="Username"/>
             </div>
             <div className="campo_input">
               {/* <label htmlFor="senha">Senha:</label> */}
-              <input type="password" name="senha" placeholder="Password"></input>
-              {/* <Link>Esqueceu a senha?</Link> */}
-            </div>
+              <input type="password" name="senha" placeholder="Password"/>
+
+            {/* <Link to="/">fdfdfdsfdsfdsfsdf</Link> */}
+            </div >
+            <a className="senhaEsquecida_Link" href="/"> Esqueceu a senha? </a>
           </div>
-          <Botao nomeDoBotao = "Login"/>
+          <Botao nomeDoBotao="Login"/>
         </form>
       </section>
     </main>
 
-  );
+  )
 }
 
 export default Login;
