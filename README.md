@@ -23,7 +23,11 @@
 # ✅ **Funcionalidades Concluídas**
 
 - Organização inicial do projeto  
-- Páginas criadas separadamente com base nas rotas  
+- Páginas criadas separadamente com base nas rotas
+
+### 🛂 **Tela de Login**
+- [✅] Estilização responsiva  
+- [✅] Layout com banner ilustrativo  
 
 ---
 
@@ -31,8 +35,6 @@
 
 ### 🛂 **Tela de Login**
 - [⏳] Identificação dos componentes  
-- [⏳] Estilização responsiva  
-- [⏳] Layout com banner ilustrativo  
 
 ### 🗂️ **Tela de Cadastro/Listagem de Evento**
 - [⏳] Criar layout responsivo com formulário e listagem
