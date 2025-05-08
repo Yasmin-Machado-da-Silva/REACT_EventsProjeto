@@ -13,21 +13,20 @@
 
     padding: 40px 0;
     background-color: #B51D44;
+    max-width: 100%;
 }
 
 .listagem h1 {
     text-transform: uppercase;
-    color: white
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+    text-decoration-thickness: 1px;
+    text-underline-position: under;
 }
 
-.listagem hr {
-    max-width: 300px;
-    width: 100%;
-    border-style: solid;
-    border-width: 1 px;
-    border-color: white;
-    margin-top: 5px;
-}
 
 .item_lista img {
     height: 28px;
@@ -43,13 +42,6 @@
     border-collapse: collapse;
 }
 
-.tabela .table_cabecalho :first-child {
-    width: 300px;
-}
-
-.tabela .table_cabecalho :nth-child(2) {
-    width: 200px;
-}
 
 .tabela .table_cabecalho th {
     width: 100px;

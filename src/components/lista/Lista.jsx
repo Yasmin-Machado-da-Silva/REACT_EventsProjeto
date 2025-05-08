@@ -4,9 +4,9 @@ import Excluir from "../../assets/icons/excluirIcon.png"
 
 const Lista = (props) => {
     return (
-        <section className="layout_grid listagem">
+        <section className="listagem">
+            <div className="layout_grid">
             <h1>{props.tituloLista}</h1>
-            <hr />
 
             <div className="tabela">
                 <table>
@@ -31,6 +31,7 @@ const Lista = (props) => {
                        
                     </tbody>
                 </table>
+            </div>
             </div>
         </section>
     )
