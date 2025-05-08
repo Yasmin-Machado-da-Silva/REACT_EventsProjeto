@@ -2,7 +2,7 @@
 import Cadastro from "../../components/cadastro/Cadastro";
 // import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header"
-// import Lista from "../../components/lista/Lista";
+import Lista from "../../components/lista/Lista";
 import bannerFundoCE from "../../assets/img/bannerFundoCE.png"
 
 const CadastroEvento = () => {
@@ -16,9 +16,9 @@ const CadastroEvento = () => {
                     bannerDefundo={bannerFundoCE}
                     select="Tipo Evento"
                 />
-                {/* <Lista
-                    tituloLista="Lista de Filmes"
-                /> */}
+                <Lista
+                    tituloLista="Lista de Evento"
+                />
             </main>
             {/* <Footer /> */}
         </>

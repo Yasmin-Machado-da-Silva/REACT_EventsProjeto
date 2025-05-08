@@ -14,8 +14,8 @@ const Lista = (props) => {
                     <thead>
                         {/* tr = table row*/}
                         <tr className="table_cabecalho">
-                            <th>Nome</th>
-                            <th style={{display:props.visiGenero}}>Gênero</th>
+                            <th>Titulo</th>
+                            <th style={{display:props.visiGenero}}>TipoEvento</th>
                             <th>Editar</th>
                             <th>Excluir</th>
                         </tr>
@@ -23,8 +23,8 @@ const Lista = (props) => {
                     {/*tbody => corpo da tabela*/}
                     <tbody>
                         <tr className="item_lista">
-                            <td data-cell="Nome">Harry Potter e a Pedra Filosofal</td>
-                            <td data-cell="Genero" style={{display:props.visiGenero}}>Ação</td>
+                            <td data-cell="Titulo">Harry Potter e a Pedra Filosofal</td>
+                            <td data-cell="TipoEvento" style={{display:props.visiEvento}}>Ação</td>
                             <td data-cell="Editar"><img src={Editar} alt="Caneta" /></td>
                             <td data-cell="Excluir"><img src={Excluir} alt="Lixo" /></td>
                         </tr>
