@@ -1,12 +1,12 @@
 import './App.css';
-// import Login from './pages/login/Login';
-import Header from './components/header/Header';
+import Rotas from "./routes/route"
+
 
 function App() {
   return (
 
-  <Header/>
-)
+  <Rotas/>
+);
 }
 
 export default App;
