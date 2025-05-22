@@ -3,6 +3,7 @@ import Login from "../pages/login/Login"
 import CadastroTipoEvento from "../pages/cadastroTE/CadastroTipoEvento"
 import CadastroEvento from "../pages/cadastroEvento/CadastroEvento"
 import CadastroTipoUsuario from "../pages/cadastroTU/CadastroTipoUsuario"
+import Lista from "../pages/listagemEvento/ListaEvento";
 
 const Rotas = () =>{
     return(
@@ -16,6 +17,8 @@ const Rotas = () =>{
                 <Route path="/evento" element={<CadastroEvento/>}/>
                 {/*http://localhost:3000/tipo_usuario => Cadastro de tipo de usuario*/}
                 <Route path="/tipo_usuario" element={<CadastroTipoUsuario/>}/>
+                {/*http://localhost:3000/tipo_usuario => Cadastro de tipo de usuario*/}
+                <Route path="/lista" element={<Lista/>}/>
             </Routes>
         </BrowserRouter>
     )

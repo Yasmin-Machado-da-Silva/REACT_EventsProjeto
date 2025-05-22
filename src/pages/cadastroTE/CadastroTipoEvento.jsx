@@ -5,6 +5,7 @@ import Header from "../../components/header/Header"
 import Lista from "../../components/lista/Lista";
 import bannerFundoTE from "../../assets/img/bannerFundoTE.png"
 
+
 const CadastroTipoEvento = () => {
     return (
         <>
@@ -18,6 +19,9 @@ const CadastroTipoEvento = () => {
                 />
                 <Lista
                     tituloLista="Lista Tipo de Evento"
+                    visiAlternativa="none"
+                    visiComentario="none"
+
                 />
             </main>
             <Footer />

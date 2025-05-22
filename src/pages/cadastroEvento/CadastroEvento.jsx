@@ -18,6 +18,9 @@ const CadastroEvento = () => {
                 />
                 <Lista
                     tituloLista="Lista de Evento"
+                    visiAlternativa="none"
+                    visiComentario="none"
+
                 />
             </main>
             <Footer />
