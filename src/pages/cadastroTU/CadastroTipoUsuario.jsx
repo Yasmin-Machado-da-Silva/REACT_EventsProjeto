@@ -118,6 +118,36 @@ const CadastroTipoUsuario = () => {
         });
     }
 
+    async function editarTU(idTipoUsuario) {
+        const { value: novoTipoUsuario } = await Swal.fire({
+            title: "Modifique seu gênero",
+            input: "text",
+            inputLabel: "Novo gênero",
+            inputValue: idTipoUsuario.tituloTipoUsuario,
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return "O campo não pode estar vazio!";
+                }
+            }
+
+        });
+        if (novoTipoUsuario) {
+            try {
+                await api.put(`TiposUsuarios/${idTipoUsuario.idTipoUsuario}`,
+                    { tituloTipoUsuario: novoTipoUsuario })
+                Swal.fire(`O tipo de usuario modificado é: ${novoTipoUsuario}`);
+
+                setTipoUsuario()
+                listarTU();
+
+            } catch (error) {
+                console.log(error);
+
+            }
+        }
+    }
+
     useEffect(() => {
         listarTU();
     }, [])
@@ -130,6 +160,7 @@ const CadastroTipoUsuario = () => {
                     tituloCadastro="Cadastro Tipo de Usuário"
                     placeholder="Nome"
                     visibilidade="none"
+                    visiDate="none"
                     bannerDefundo={bannerFundoTU}
                     funcCadastro={cadastrarTU}
                     setValorInput={setTipoUsuario}
@@ -139,11 +170,13 @@ const CadastroTipoUsuario = () => {
                 <Lista
                     tituloLista="Lista Tipo de Usuário"
                     lista={listaTU}
-                    visiTipoEvento="none"
                     visiAlternativa="none"
                     visiComentario="none"
                     tipoLista="TiposUsuarios"
                     funcExcluir={deletarTipoUsuario}
+                    tipoDeTitulo=" "
+                    funcEditar={editarTU}
+
 
 
                 />

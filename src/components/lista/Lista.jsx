@@ -4,8 +4,6 @@ import Excluir from "../../assets/icons/excluirIcon.png"
 import Alternar from "../../assets/icons/alternarIcon.png"
 import Comentario from "../../assets/icons/comentIcon.png"
 
-
-
 const Lista = (props) => {
     return (
         <section className="listagem">
@@ -19,7 +17,7 @@ const Lista = (props) => {
                             {/* tr = table row*/}
                             <tr className="table_cabecalho">
                                 <th>Titulo</th>
-                                <th style={{ display: props.visiTipoEvento }}>{props.tipoDeTitulo}</th>
+                                <th >{props.tipoDeTitulo}</th>
                                 <th>Editar</th>
                                 <th>Excluir</th>
                             </tr>
@@ -28,9 +26,15 @@ const Lista = (props) => {
                         <tbody>
                             {props.lista && props.lista.length > 0 ? (
                                 props.lista.map((item) => (
-                                    <tr className="item_lista" key={props.tipoLista == "TiposUsuarios" ? item.idTipoUsuario : item.idTipoEvento}>
+                                    <tr className="item_lista" key={props.tipoLista === "TiposUsuarios"
+                                        ? item.idTipoUsuario
+                                        : item.idTipoEvento}
+                                    >
                                         <td data-cell="Titulo">
-                                            {props.tipoLista == "TiposUsuarios" ? item.tituloTipoUsuario : item.titulo}
+                                            {props.tipoLista === "TiposUsuarios"
+                                                ? item.tituloTipoUsuario
+                                                : item.tituloTipoEvento}
+                                            {/* {props.tipoLista === "TiposUsuarios" ? item.tituloTipoUsuario : item.titulo} */}
                                         </td>
                                         <td data-cell="TipoEvento"
                                             style={{ display: props.visiEvento }}>
@@ -76,7 +80,6 @@ const Lista = (props) => {
                                     <p>Nenhum tipo de usuario foi encontrado!</p>
                                 )
                             }
-
 
                         </tbody>
                     </table>

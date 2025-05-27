@@ -15,11 +15,13 @@ const CadastroEvento = () => {
                     placeholder="Nome"
                     bannerDefundo={bannerFundoCE}
                     select="Tipo Evento"
+                    
                 />
                 <Lista
                     tituloLista="Lista de Evento"
                     visiAlternativa="none"
                     visiComentario="none"
+                    
 
                 />
             </main>
