@@ -133,7 +133,7 @@ const CadastroTipoEvento = () => {
         });
         if (novoTipoEvento) {
             try {
-                await api.put(`TiposUsuarios/${idTipoEvento.idTipoEvento}`,
+                await api.put(`TiposEventos/${idTipoEvento.idTipoEvento}`,
                     { tituloTipoEvento: novoTipoEvento })
                 Swal.fire(`O tipo de usuario modificado é: ${novoTipoEvento}`);
                
@@ -176,9 +176,6 @@ const CadastroTipoEvento = () => {
                     funcExcluir={deletarTipoEvento}
                     tipoDeTitulo=" "
                     funcEditar={editarTE}
-
-
-
                 />
             </main>
             <Footer />
