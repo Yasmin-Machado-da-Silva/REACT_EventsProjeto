@@ -3,7 +3,7 @@ import Login from "../pages/login/Login"
 import CadastroTipoEvento from "../pages/cadastroTE/CadastroTipoEvento"
 import CadastroEvento from "../pages/cadastroEvento/CadastroEvento"
 import CadastroTipoUsuario from "../pages/cadastroTU/CadastroTipoUsuario"
-import Lista from "../pages/listagemEvento/ListaEvento";
+import Lista from "../pages/listagemEventoAluno/ListaEvento"
 
 const Rotas = () =>{
     return(

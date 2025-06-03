@@ -40,9 +40,9 @@ const CadastroTipoUsuario = () => {
             // alert("O campo prescisa estar preenchido")
             try {
                 //cadastrar um tipo usuario: post
-                await api.post("TiposUsuarios", { tituloTipoUsuario: TiposUsuarios });
+                await api.post("TiposUsuarios", { tituloTipoUsuario: TiposUsuarios});
                 alertar("success", "Cadastro realizado com sucesso! 🎉")
-                setTipoUsuario()
+                setTipoUsuario();
                 listarTU();
             } catch (error) {
                 alertar("error", "ERRO: Entre em contato com o suporte! 🤖")
@@ -170,8 +170,6 @@ const CadastroTipoUsuario = () => {
                 <Lista
                     tituloLista="Lista Tipo de Usuário"
                     lista={listaTU}
-                    visiAlternativa="none"
-                    visiComentario="none"
                     tipoLista="TiposUsuarios"
                     funcExcluir={deletarTipoUsuario}
                     tipoDeTitulo=" "

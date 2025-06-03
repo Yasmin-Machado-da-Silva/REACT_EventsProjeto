@@ -1,8 +1,6 @@
 import "./Lista.css";
 import Editar from "../../assets/icons/editarIcon.png"
 import Excluir from "../../assets/icons/excluirIcon.png"
-import Alternar from "../../assets/icons/alternarIcon.png"
-import Comentario from "../../assets/icons/comentIcon.png"
 
 const Lista = (props) => {
     return (
@@ -55,23 +53,6 @@ const Lista = (props) => {
                                             <img src={Excluir}
                                                 alt="Lixeira"
                                                 style={{ cursor: "pointer" }} />
-                                        </td>
-                                        <td
-                                            onClick={() => (props.funcAlternar(item))}
-                                            data-cell="Alternativa"
-                                        >
-                                            <img src={Alternar}
-                                                alt="Alternativa"
-                                                style={{ cursor: "pointer", display: props.visiAlternativa }} />
-                                        </td>
-                                        <td
-                                            onClick={() => (props.funcEditar(item))}
-                                            data-cell="Comentario"
-                                        >
-                                            <img src={Comentario}
-                                                alt="Balão de comentário"
-                                                style={{ cursor: "pointer", display: props.visiComentario }}
-                                            />
                                         </td>
                                     </tr>
                                 ))
