@@ -1,61 +1,71 @@
-import Desc from "../../assets/icons/descricaoIcon.png"
-import Coment from "../../assets/icons/comentIcon.png"
-import { useEffect, useState } from "react"
+import Footer from "../../components/footer/Footer";
+import Header from "../../components/header/Header";
+import Comentario from "../../assets/icons/comentIcon.png"
+import Informacao from "../../assets/icons/descricaoIcon.png"
+import "./ListaEvento.css"
+import { useEffect, useState } from "react";
 import api from "../../services/services"
-import { format } from "date-fns"
-import Modal from "../../components/modal/Modal"
-import Toggle from "../../components/toggle/Toggle.jsx"
-import Swal from "sweetalert2"
+import { format } from "date-fns";
+import Modal from "../../components/modal/Modal";
+import Toggle from "../../components/toggle/Toggle";
+import Swal from "sweetalert2";
 
-const AlunoListagemEvento = () => {
+
+
+const EventoAluno = () => {
 
     const [listaEventos, setListaEventos] = useState([]);
-    const [tipoModal, setTipoModal] = useState(""); //"descriçãoEvento" ou "Comentário"
-    const [dadosModal, setDadosModal] = useState({});
-    const [modalAberto, setModalAberto] = useState(false)
-
-    const [filtroData, setFiltroData] = useState(["todos"])
-
-    const [usuarioId, setUsuarioId] = useState("AB46FD86-2DD9-4B69-8D33-43B9433E7EB1")
+    const [tipoModal, setTipoModal] = useState("");
+    //"descricaoEvento" ou "comentario"
+    const [dadosModal, setDadosModal] = useState([]);
+    //descricao, idEvento, etc...
+    const [modalAberto, setModalAberto] = useState(false);
+    const [filtroData, setFiltroData] = useState(["todos"]);
+    const [usuarioId, setUsuarioId] = useState("D479E299-39BA-45CD-C9C0-08DDA4391B48");
 
     async function listarEventos() {
         try {
-            const resposta = await api.get("Eventos")
-            const todosOsEventos = resposta.data
+            //pego os eventos em geral
+            const eventoListado = await api.get("Evento");
+            const todosOsEventos = eventoListado.data;
 
             const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/" + usuarioId)
-
             const minhasPresencas = respostaPresenca.data;
 
             const eventosComPresencas = todosOsEventos.map((atualEvento) => {
                 const presenca = minhasPresencas.find(p => p.idEvento === atualEvento.idEvento);
 
+
                 return {
-                    //as informações tanto de evento quanto de de eventos que possuem presenca
-                    ...atualEvento,//Mantém os dados originais do evento atual
+                    //as informacoes tanto de eventos, quanto de eventos que possuem presenca
+                    ...atualEvento, //mantem os dados originais do evento 
                     possuiPresenca: presenca?.situacao === true,
-                    idPresenca: presenca?.idPresenca || null
+                    idPresenca: presenca?.idPresencaEvento || null
                 }
             })
 
-            setListaEventos(eventosComPresencas)
-            // console.log(eventosComPresencas)
+            setListaEventos(eventosComPresencas);
+            console.log(`informacoes de todos os evento:`);
+            console.log(todosOsEventos);
+
+            console.log(`informacoes de eventos com presenca:`);
+            console.log(minhasPresencas);
+
+            console.log(`informacoes de todos os evento com presenca:`);
+            console.log(eventosComPresencas);
 
         } catch (error) {
             console.log(error);
-        }
 
+        }
     }
-    useEffect(() => {
-        listarEventos();
-    }, [])
 
     function abrirModal(tipo, dados) {
-        //tipo de modal
-        // dados
+        //tipo de modal 
+        //dados
         setModalAberto(true)
-        setTipoModal(tipo);
-        setDadosModal(dados);
+        setDadosModal(tipo)
+        setTipoModal(dados)
     }
 
     function fecharModal() {
@@ -65,59 +75,71 @@ const AlunoListagemEvento = () => {
     }
 
     async function manipularPresenca(idEvento, presenca, idPresenca) {
-        console.log("aaaa")
         try {
-            if (presenca && idPresenca !== "") {
+            if (presenca && idPresenca != "") {
+                //atualizacao da situacao para false
                 await api.put(`PresencasEventos/${idPresenca}`, { situacao: false })
-                // Atualização da situação para FALSE.
-            } else if (idPresenca !== "") {
-                // Atualização da situação para TRUE.
-                await api.put(`PresencasEventos/${idPresenca}`, { situacao: true })
-                Swal.fire(`Confirmado!`, `Sua presença foi confirmada.`, `success`);
+                Swal.fire('Removido!', 'Sua presença foi confirmada.', 'success')
+            } else if (idPresenca != "") {
+                //atualozacao para true
+                await api.put(`PresencasEventos/${idPresenca}`,
+                    { situacao: true })
+                Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success')
             } else {
-                // Cadastrar uma NOVA situação.
-                await api.post(`PresencasEventos/${idPresenca}`, { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
-                Swal.fire(`Confirmado!`, `Sua presença foi confirmada.`, `success`);
-            }
-            listarEventos()
-        } catch (error) {
-            console.log(error);
-        }
+                //cadastrar uma nova presenca 
+                await api.post("PresencasEventos", { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
+                Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success')
 
+            }
+            listarEventos();
+        } catch (error) {
+            console.log(error)
+        }
     }
+
     function filtrarEventos() {
         const hoje = new Date();
 
         return listaEventos.filter(evento => {
-            const dataEvento = new Date(evento.dataEvento)
+            const dataEvento = new Date(evento.dataEvento);
 
             if (filtroData.includes("todos")) return true;
-            if (filtroData.includes("futuros") && dataEvento > hoje) return true
-            if (filtroData.includes("passados") && dataEvento < hoje) return true
+            if (filtroData.includes("futuros") && dataEvento > hoje) return true;
+            if (filtroData.includes("passados") && dataEvento < hoje) return true;
 
-            return false
-        })
+            return false;
+        });
     }
 
- 
+    useEffect(() => {
+        listarEventos()
+    }, [])
+
     return (
+
+        //Aqui voce vai chamar o header
         <>
-            {/* //Aqui vc vai chamar o header
-        //Começando a listagem: */}
+            <Header />
+
+            {/* //Comecando a listagem */}
             <main className="main_lista_eventos layout-grid">
                 <div className="titulo">
                     <h1>Eventos</h1>
                     <hr />
                 </div>
                 <select onChange={(e) => setFiltroData([e.target.value])}>
-                    <option value="" selected>Todos os eventos</option>
+                    <option value="todos" selected>Todos os eventos</option>
+                    <option value="futuros">Somente futuros</option>
+                    <option value="passados">Somente passados</option>
                 </select>
                 <table className="tabela_lista_eventos">
                     <thead>
                         <tr className="th_lista_eventos">
-                            <th>Titulo</th>
-                            <th>Data Evento</th>
-                            <th>Comentarios</th>
+                            <th>Título</th>
+                            <th>Data do Evento</th>
+                            <th>Tipo Evento</th>
+                            <th>Descrição</th>
+                            <th>Comentários</th>
                             <th>Participar</th>
                         </tr>
                     </thead>
@@ -126,64 +148,53 @@ const AlunoListagemEvento = () => {
                             filtrarEventos() && filtrarEventos().map((item) => (
                                 <tr>
                                     <td>{item.nomeEvento}</td>
-                                    <td>{format(item.dataEvento, "dd/MM//yy")}</td>
+                                    <td>{format(item.dataEvento, "dd/MM/yy")}</td>
                                     <td>{item.tiposEvento.tituloTipoEvento}</td>
-
-                                    <td
-                                        data-cell="Descrição">
-
-                                        <img src={Desc}
-                                            alt="Balão de descrição"
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })}
-                                        />
+                                    <td>
+                                        <button className="icon" onClick={() => abrirModal("descricaoEvento", { descricao: item.descricao })}>
+                                            <img src={Informacao} alt="" />
+                                        </button>
                                     </td>
-                                    <td
-                                        data-cell="Comentario">
-
-                                        <img src={Coment}
-                                            alt="Balão de comentário"
-                                            style={{ cursor: "pointer" }}
-                                            onClick={() => abrirModal("cometarios", { idEvento: item.idEvento })}
-                                        />
+                                    <td>
+                                        <button className="icon" onClick={() => abrirModal("comentarios", { idEvento: item.idEvento })}>
+                                            <img src={Comentario} alt="" />
+                                        </button>
                                     </td>
-
-                                    <td data-cell="botao">
-
-                                        <Toggle presenca={item.possuiPresenca}
-                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)} />
-
+                                    <td>
+                                        <Toggle
+                                            presenca={item.possuiPresenca}
+                                            manipular={() => manipularPresenca = (item.idEvento, item.possuiPresenca, item.idPresenca)}
+                                        />
                                     </td>
                                 </tr>
                             ))
                         ) : (
-                            <p>Não tem nenhum evento cadastrado</p>
-                        )
-                        }
-
+                            <p>Não existe eventos cadastrados.</p>
+                        )}
                     </tbody>
                 </table>
             </main>
 
-            {/* //Aqui vc vai chamar o footer */}
-
+            {/* //Aqui voce vai chamar o footer */}
+            {/* <Footer /> */}
             {modalAberto && (
-
                 <Modal
-                    titulo={tipoModal === "descricaoEvento" ? "Descrição do evento" : "Comentário"}
-                    //Estou verificando qual é o tipo do moda.
+                    titulo={
+                        tipoModal == "descricaoEvento" 
+                        ? "Descrição do evento:" 
+                        : "Comentário"
+                    }
+                    //estou vereficando qual eh o tipo de moda!
                     tipoModel={tipoModal}
 
                     idEvento={dadosModal.idEvento}
 
                     descricao={dadosModal.descricao}
 
-                    fecharModal={fecharModal}
-                />
-
+                    fecharModal={fecharModal} />
             )}
         </>
     )
 }
 
-export default AlunoListagemEvento;
+export default EventoAluno;
