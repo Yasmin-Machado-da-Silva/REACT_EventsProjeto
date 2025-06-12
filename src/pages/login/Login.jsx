@@ -88,58 +88,6 @@ const Login = () => {
 
   }
 
-  // const Login = () => {
-
-  //   const [email, setEmail] = useState("");
-  //   const [senha, setSenha] = useState("");
-
-  //   const navigate = useNavigate();
-
-  //     const {setUsuario} = useAuth();
-
-
-
-
-  //   async function realizarAutenticacao(e) {
-  //     e.preventDefault();
-
-  //     const usuario = {
-  //       Email: email,
-  //       Senha: senha
-  //     }
-  //     if (senha.trim() != "" || email.trim() != "") {
-  //       try {
-  //         const resposta = await api.post("Login", usuario)
-  //         const token = resposta.data.token;
-
-  //         if (token) {
-  //           const tokenDecodificado = userDecodeToken(token);
-  //           usuario(tokenDecodificado)
-
-  //           secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
-
-  //           if (tokenDecodificado.tipoUsuario === "Aluno") {
-  //             //redirecionar a tela do aluno(branco)
-  //             navigate("/lista")
-  //           } else {
-  //             //ele vai me encaminhar para tela cadastro de eventos(vermelha)
-  //             navigate("/evento")
-
-  //           }
-  //         }
-  //       } catch (error) {
-  //         console.log(error);
-  //         alertar("error", "EMAIL ou senha inválidos, para dúvidas entre em contato com o suporte. 🤖")
-
-  //       }
-  //     } else {
-  //       alertar("warning", "Preencha os campos vazios para realizar o login 🤖")
-
-  //     }
-
-  //   }
-
-
   return (
     <main className="main_login">
       <div className="banner"></div>
