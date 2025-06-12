@@ -1,13 +1,14 @@
-import Footer from "../../components/footer/Footer";
+import "./ListaEvento.css"
+import { useEffect, useState } from "react";
+import { format } from "date-fns";
+import { useAuth } from "../../contexts/AuthContext";
+// import Footer from "../../components/footer/Footer"
 import Header from "../../components/header/Header";
 import Comentario from "../../assets/icons/comentIcon.png"
 import Informacao from "../../assets/icons/descricaoIcon.png"
-import "./ListaEvento.css"
-import { useEffect, useState } from "react";
 import api from "../../services/services"
-import { format } from "date-fns";
 import Modal from "../../components/modal/Modal";
-import Toggle from "../../components/toggle/Toggle";
+import Toggle from "../../components/toggle/Toggle"
 import Swal from "sweetalert2";
 
 
@@ -21,7 +22,8 @@ const EventoAluno = () => {
     //descricao, idEvento, etc...
     const [modalAberto, setModalAberto] = useState(false);
     const [filtroData, setFiltroData] = useState(["todos"]);
-    const [usuarioId, setUsuarioId] = useState("D479E299-39BA-45CD-C9C0-08DDA4391B48");
+    // const [usuarioId, setUsuarioId] = useState("D479E299-39BA-45CD-C9C0-08DDA4391B48");
+    const { usuario } = useAuth();
 
     async function listarEventos() {
         try {
@@ -29,7 +31,7 @@ const EventoAluno = () => {
             const eventoListado = await api.get("Evento");
             const todosOsEventos = eventoListado.data;
 
-            const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/" + usuarioId)
+            const respostaPresenca = await api.get("PresencasEventos/ListarMinhas/" + usuario.idUsuario)
             const minhasPresencas = respostaPresenca.data;
 
             const eventosComPresencas = todosOsEventos.map((atualEvento) => {
@@ -87,7 +89,7 @@ const EventoAluno = () => {
                 Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success')
             } else {
                 //cadastrar uma nova presenca 
-                await api.post("PresencasEventos", { situacao: true, idUsuario: usuarioId, idEvento: idEvento });
+                await api.post("PresencasEventos", { situacao: true, idUsuario: usuario.idUsuario, idEvento: idEvento });
                 Swal.fire('Confirmado!', 'Sua presença foi confirmada.', 'success')
 
             }
@@ -112,15 +114,14 @@ const EventoAluno = () => {
     }
 
     useEffect(() => {
-        listarEventos()
-    }, [])
+        listarEventos();
+    }, []);
 
     return (
 
         //Aqui voce vai chamar o header
         <>
             <Header />
-
             {/* //Comecando a listagem */}
             <main className="main_lista_eventos layout-grid">
                 <div className="titulo">
@@ -163,7 +164,7 @@ const EventoAluno = () => {
                                     <td>
                                         <Toggle
                                             presenca={item.possuiPresenca}
-                                            manipular={() => manipularPresenca = (item.idEvento, item.possuiPresenca, item.idPresenca)}
+                                            manipular={() => manipularPresenca(item.idEvento, item.possuiPresenca, item.idPresenca)}
                                         />
                                     </td>
                                 </tr>
@@ -180,9 +181,9 @@ const EventoAluno = () => {
             {modalAberto && (
                 <Modal
                     titulo={
-                        tipoModal == "descricaoEvento" 
-                        ? "Descrição do evento:" 
-                        : "Comentário"
+                        tipoModal == "descricaoEvento"
+                            ? "Descrição do evento:"
+                            : "Comentário"
                     }
                     //estou vereficando qual eh o tipo de moda!
                     tipoModel={tipoModal}

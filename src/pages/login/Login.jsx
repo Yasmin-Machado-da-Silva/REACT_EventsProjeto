@@ -2,21 +2,16 @@
 import { useState } from "react";
 import { userDecodeToken } from "../../auth/Auth";
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from "../../contexts/AuthContext"
 import Botao from "../../components/botao/Botao";
 import Logo from "../../assets/img/logoEvents.svg"
 import api from "../../services/services"
 import Swal from "sweetalert2";
 import secureLocalStorage from "react-secure-storage";
 import "./Login.css"
-
 // import {Link} from "react-router-dom";
 
 const Login = () => {
-
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("")
-
-  const navigate = useNavigate();
 
   //PARTE DO ALERTA
   function alertar(icone, mensagem) {
@@ -38,44 +33,111 @@ const Login = () => {
   }
   //FIM DA PARTE DO ALERTA
 
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+
+  const navigate = useNavigate();
+
+  const { setUsuario } = useAuth();
 
   async function realizarAutenticacao(e) {
-    e.preventDefault();
 
+    e.preventDefault();
+    // console.log(email, senha);
     const usuario = {
       email: email,
       senha: senha
     }
+
     if (senha.trim() != "" || email.trim() != "") {
       try {
-        const resposta = await api.post("Login", usuario)
+        const resposta = await api.post("Login", usuario);
+
         const token = resposta.data.token;
 
         if (token) {
+          //token sera decodificado:
           const tokenDecodificado = userDecodeToken(token);
+          // console.log("Token decodificado:");
+          // console.log(tokenDecodificado.tipoUsuario);
+
+          setUsuario(tokenDecodificado);
 
           secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
 
-          if (tokenDecodificado.tipoUsuario === "aluno") {
-            //redirecionar a tela do aluno(branco)
+          // console.log("O tipo de usuario é:");
+          // console.log(tokenDecodificado.tipoUsuario);
+
+          if (tokenDecodificado.tipoUsuario === "Aluno") {
+            //redirecionar a tela de lista de eventos(branca)
             navigate("/lista")
           } else {
-            //ele vai me encaminhar para tela cadastro de eventos(vermelha)
+            //ele vai me encaminhar pra tela cadastro de eventos(vermelha)
             navigate("/evento")
-
           }
+
         }
+
       } catch (error) {
         console.log(error);
         alertar("error", "EMAIL ou senha inválidos, para dúvidas entre em contato com o suporte. 🤖")
-
       }
     } else {
       alertar("warning", "Preencha os campos vazios para realizar o login 🤖")
-
     }
 
   }
+
+  // const Login = () => {
+
+  //   const [email, setEmail] = useState("");
+  //   const [senha, setSenha] = useState("");
+
+  //   const navigate = useNavigate();
+
+  //     const {setUsuario} = useAuth();
+
+
+
+
+  //   async function realizarAutenticacao(e) {
+  //     e.preventDefault();
+
+  //     const usuario = {
+  //       Email: email,
+  //       Senha: senha
+  //     }
+  //     if (senha.trim() != "" || email.trim() != "") {
+  //       try {
+  //         const resposta = await api.post("Login", usuario)
+  //         const token = resposta.data.token;
+
+  //         if (token) {
+  //           const tokenDecodificado = userDecodeToken(token);
+  //           usuario(tokenDecodificado)
+
+  //           secureLocalStorage.setItem("tokenLogin", JSON.stringify(tokenDecodificado));
+
+  //           if (tokenDecodificado.tipoUsuario === "Aluno") {
+  //             //redirecionar a tela do aluno(branco)
+  //             navigate("/lista")
+  //           } else {
+  //             //ele vai me encaminhar para tela cadastro de eventos(vermelha)
+  //             navigate("/evento")
+
+  //           }
+  //         }
+  //       } catch (error) {
+  //         console.log(error);
+  //         alertar("error", "EMAIL ou senha inválidos, para dúvidas entre em contato com o suporte. 🤖")
+
+  //       }
+  //     } else {
+  //       alertar("warning", "Preencha os campos vazios para realizar o login 🤖")
+
+  //     }
+
+  //   }
 
 
   return (

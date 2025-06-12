@@ -58,7 +58,7 @@ const Lista = (props) => {
                                 ))
                             ) :
                                 (
-                                    <p>Nenhum tipo de usuario foi encontrado!</p>
+                                    <tr>Nenhum tipo de usuario foi encontrado!</tr>
                                 )
                             }
 
