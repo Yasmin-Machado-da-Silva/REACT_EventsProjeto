@@ -11,8 +11,6 @@ import Modal from "../../components/modal/Modal";
 import Toggle from "../../components/toggle/Toggle"
 import Swal from "sweetalert2";
 
-
-
 const EventoAluno = () => {
 
     const [listaEventos, setListaEventos] = useState([]);
