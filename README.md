@@ -29,26 +29,22 @@
 - [✅] Estilização responsiva  
 - [✅] Layout com banner ilustrativo  
 
----
-
-# ⏳ **Funcionalidades Pendentes**
-
 ### 🛂 **Tela de Login**
-- [⏳] Identificação dos componentes  
+- [✅] Identificação dos componentes  
 
 ### 🗂️ **Tela de Cadastro/Listagem de Evento**
-- [⏳] Criar layout responsivo com formulário e listagem
+- [✅] Criar layout responsivo com formulário e listagem
 
 ### 🧩 **Tela de Cadastro/Listagem de Tipo de Evento**
-- [⏳] Estruturar formulário com estilo responsivo  
-- [⏳] Conectar com rotas e possíveis estados
+- [✅] Estruturar formulário com estilo responsivo  
+- [✅] Conectar com rotas e possíveis estados
 
 ### 👥 **Tela de Cadastro/Listagem de Tipo de Usuário**
-- [⏳] Dividir em componentes reutilizáveis  
-- [⏳] Garantir responsividade
+- [✅] Dividir em componentes reutilizáveis  
+- [✅] Garantir responsividade
 
 ### 🗃️ **Tela de Listagem de Evento**
-- [⏳] Construção da visualização responsiva da lista  
+- [✅] Construção da visualização responsiva da lista  
 
 ---
 
